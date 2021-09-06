@@ -19,9 +19,11 @@ const people: {[personId: string]: Person} = {
 
 export async function get(request: Request): Promise<DogResponse> {
   const {personId, dogId} = request.params;
+  console.log('[dogId].ts get: personId =', personId);
+  console.log('[dogId].ts get: dogId =', dogId);
 
-  console.log('[dogId].ts get: sleeping');
-  await sleep(5000); // simulate slow REST service
+  console.log('[dogId].ts get: sleeping for 3 seconds');
+  await sleep(3000); // simulate slow REST service
   console.log('[dogId].ts get: awake');
 
   const person = people[personId];

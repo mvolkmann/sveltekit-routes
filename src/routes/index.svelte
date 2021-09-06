@@ -4,8 +4,14 @@
   import '../global.css';
 
   let goToBtn: HTMLButtonElement;
+
+  // Changing either of these will cause prefetch to trigger again
+  // if the user hovers over the "Go To Dog" anchor or button.
   let dogId = 1;
   let personId = 1;
+
+  // Changing this will not cause prefetch to trigger again.
+  let unusedId = 1;
 
   let url: string;
   $: url = `/person/${personId}/dog/${dogId}`;
@@ -29,6 +35,10 @@
     <label for="dog">Dog ID</label>
     <input type="number" bind:value={dogId} />
   </div>
+  <div class="row">
+    <label for="unused">Unused ID</label>
+    <input type="number" bind:value={unusedId} />
+  </div>
 
   <!-- This demonstrations using prefetch on a hyperlink. -->
   <a href={url} sveltekit:prefetch on:click={() => setCursor('wait')}>
@@ -40,7 +50,7 @@
        corresponding key event handling. This is why we
        listen for both mouseover and focus events here. -->
   <button bind:this={goToBtn} on:focus={fetch} on:mouseover={fetch}>
-    Go To dog
+    Go To Dog
   </button>
 </form>
 
