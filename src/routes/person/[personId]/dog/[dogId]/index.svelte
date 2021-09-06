@@ -3,10 +3,10 @@
   import type {Dog} from '$lib/types';
 
   export async function load({
-    context,
+    context, // not used
     fetch,
     page,
-    session
+    session // not used
   }: LoadInput): Promise<LoadOutput> {
     const {personId, dogId} = page.params;
     const url = `/api/person/${personId}/dog/${dogId}`;
@@ -32,12 +32,7 @@
 </script>
 
 <script lang="ts">
-  import {onMount} from 'svelte';
-  import {setCursor} from '$lib/util';
-
   export let dog: Dog;
-
-  onMount(() => setCursor('default'));
 </script>
 
 <p>

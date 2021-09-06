@@ -1,5 +1,6 @@
 <script lang="ts">
   import {goto, prefetch} from '$app/navigation';
+  import {navigating} from '$app/stores';
   import {setCursor} from '$lib/util';
   import '../global.css';
 
@@ -16,17 +17,14 @@
   let url: string;
   $: url = `/person/${personId}/dog/${dogId}`;
 
+  $: setCursor($navigating ? 'wait' : 'default');
+
   function fetch() {
     prefetch(url);
   }
-
-  async function submit() {
-    setCursor('wait');
-    goto(url);
-  }
 </script>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault={() => goto(url)}>
   <div class="row">
     <label for="person">Person ID</label>
     <input type="number" bind:value={personId} />
@@ -41,9 +39,7 @@
   </div>
 
   <!-- This demonstrations using prefetch on a hyperlink. -->
-  <a href={url} sveltekit:prefetch on:click={() => setCursor('wait')}>
-    Go To Dog
-  </a>
+  <a href={url} sveltekit:prefetch> Go To Dog </a>
 
   <!-- This demonstrations using prefetch on a button. -->
   <!-- For accessibility, mouse event handling should have
