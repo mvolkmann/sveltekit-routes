@@ -8,11 +8,28 @@ const comet: Dog = {
   breed: 'Whippet'
 };
 
+const maisey: Dog = {
+  name: 'Maisey',
+  breed: 'Treeing Walker Coonhound'
+};
+
+const oscar: Dog = {
+  name: 'Oscar Wilde',
+  breed: 'Lab mix'
+};
+
 const people: {[personId: string]: Person} = {
   '1': {
     name: 'Tami Volkmann',
     dogs: {
       '1': comet
+    }
+  },
+  '2': {
+    name: 'Amanda Nelson',
+    dogs: {
+      '1': maisey,
+      '2': oscar
     }
   }
 };
