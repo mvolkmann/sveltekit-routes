@@ -13,6 +13,12 @@
     const res = await fetch(url);
     let dog: Dog;
     let error = '';
+
+    // Cache the page for the specified personId and dogId for 60 seconds.
+    // Any request with the cached values received in that time period
+    // will be served a cache page and this load function will not be run.
+    let maxage = 60;
+
     let status = 200;
     if (res.ok) {
       dog = await res.json();
@@ -21,7 +27,7 @@
       console.log('index.svelte load: error =', error);
       status = res.status;
     }
-    return {error, props: {dog}, status};
+    return {error, maxage, props: {dog}, status};
   }
 </script>
 
