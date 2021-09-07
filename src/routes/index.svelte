@@ -2,7 +2,8 @@
   import {goto, prefetch} from '$app/navigation';
   import {navigating} from '$app/stores';
   import {setCursor} from '$lib/util';
-  import '../global.css';
+  import '$src/global.css';
+  import Test from '$view/Test.svelte';
 
   let goToBtn: HTMLButtonElement;
 
@@ -23,6 +24,8 @@
     prefetch(url);
   }
 </script>
+
+<Test />
 
 <form on:submit|preventDefault={() => goto(url)}>
   <div class="row">
