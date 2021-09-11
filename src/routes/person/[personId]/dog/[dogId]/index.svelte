@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type {LoadInput, LoadOutput} from '@sveltejs/kit/types';
+  import type {LoadInput, LoadOutput} from '@sveltejs/kit';
   import type {Dog} from '$lib/types';
 
   export async function load({
@@ -11,23 +11,16 @@
     const {personId, dogId} = page.params;
     const url = `/api/person/${personId}/dog/${dogId}`;
     const res = await fetch(url);
-    let dog: Dog;
-    let error = '';
-
-    // Cache the page for the specified personId and dogId for 60 seconds.
-    // Any request with the cached values received in that time period
-    // will be served a cache page and this load function will not be run.
-    let maxage = 60;
-
-    let status = 200;
     if (res.ok) {
-      dog = await res.json();
-    } else {
-      error = await res.text();
-      console.log('index.svelte load: error =', error);
-      status = res.status;
+      const dog = await res.json();
+      // Cache the page for the specified personId and dogId for 60 seconds.
+      // Any request with the cached values received in that time period
+      // will be served a cache page and this load function will not be run.
+      return {maxage: 60, props: {dog}};
     }
-    return {error, maxage, props: {dog}, status};
+
+    const error = await res.text();
+    return {error, status: res.status};
   }
 </script>
 
