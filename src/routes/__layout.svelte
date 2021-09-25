@@ -1,2 +1,2 @@
-<h1>Load Functions Demo</h1>
+<h1>SvelteKit Routes Demo</h1>
 <slot />
